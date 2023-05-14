@@ -2,13 +2,38 @@
 version: "3.8"
 services:
     nodeserver:
+        restart: always
         build:
             context: ./app
         ports:
             - "3000:3000"
+        depends_on:
+            - mysql
+        networks:
+            - myNet
     nginx:
         restart: always
         build:
             context: ./nginx
         ports:
             - "80:80"
+        depends_on:
+            - nodeserver
+        networks:
+            - myNet
+    mysql:
+        restart: always
+        build:
+            context: ./db
+            args:
+                - MYSQL_DATABASE=mydb
+                - MYSQL_USER=mysql
+                - MYSQL_PASSWORD=mysql
+                - MYSQL_ROOT_PASSWORD=mysql
+        ports:
+            - "3306:3306"
+        networks:
+            - myNet
+
+networks:
+  myNet:
