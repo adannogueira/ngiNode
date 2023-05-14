@@ -1,0 +1,7 @@
+CREATE DATABASE IF NOT EXISTS `mydb`;
+USE `mydb`;
+
+DROP TABLE IF EXISTS `urls`;
+CREATE TABLE `urls` (
+  `name` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
